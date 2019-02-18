@@ -1,8 +1,8 @@
-package 백준문제;
+package 규칙;
 
 import java.util.Scanner;
 
-public class Main {
+public class Back2292_re {
 
 	public static Scanner sc = new Scanner(System.in);
 
