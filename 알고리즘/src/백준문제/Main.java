@@ -4,35 +4,31 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static Scanner sc = new Scanner(System.in);
+    public static void main(String args[]) {
 
-	public static void main(String[] args) {
-		int n = sc.nextInt();
-		int p = 1;
-		int q = 1;
-		int tmp = 1;
-		int ea = 0;
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        int ans[] = new int[t];
 
-		name: while (true) {
-			
-			for (int i = p; i <= q; i++) {
-				
-				if (n == i) {
-					ea++;
-					break name;
-				}
-				
-				if (i == q) {
-					ea++;
-				}
-			}
-			
-			p = q+1;
-			q += 6*tmp;
-			tmp++;
-		}
-		
-		System.out.println(ea);
-		
-	}
+        for (int i = 0; i < t; i++) {
+            int count = 0;
+            int ho = 1;
+            int h = sc.nextInt();
+            int w = sc.nextInt();
+            int n = sc.nextInt();
+
+            for (int j = 0; j < n; j++) {
+                if (count >= h) {
+                    ho++;
+                    count = 0;
+                }
+                count++;
+            }
+            ans[i] = count * 100 + ho;
+
+        }
+        for (int i = 0; i < t; i++) {
+            System.out.println(ans[i]);
+        }
+    }
 }
