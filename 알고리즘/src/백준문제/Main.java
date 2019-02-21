@@ -4,31 +4,43 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String args[]) {
-
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-        int ans[] = new int[t];
-
-        for (int i = 0; i < t; i++) {
-            int count = 0;
-            int ho = 1;
-            int h = sc.nextInt();
-            int w = sc.nextInt();
-            int n = sc.nextInt();
-
-            for (int j = 0; j < n; j++) {
-                if (count >= h) {
-                    ho++;
-                    count = 0;
-                }
-                count++;
-            }
-            ans[i] = count * 100 + ho;
-
-        }
-        for (int i = 0; i < t; i++) {
-            System.out.println(ans[i]);
-        }
-    }
+private static Scanner sc = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		
+		int testCase = sc.nextInt();
+		int k = 1;
+		int n = 3;
+		String[] result = new String[testCase];
+		
+		for (int p = 0; p < testCase; p++) {
+			k = sc.nextInt();
+			n = sc.nextInt();
+			int[] ea = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+			int[] tmp = new int[14];
+			
+			for (int i = 0; i < k; i++) {
+				
+				for (int j = 0; j < n; j++) {
+					tmp[j] = recursionSum(j, ea);
+				}
+				
+				System.arraycopy(tmp, 0, ea, 0, n);
+			}
+			
+			result[p] = String.valueOf(ea[n-1]);
+		}
+		
+		for (int i = 0; i < result.length; i++) {
+			System.out.println(result[i]);
+		}
+		
+	}
+	
+	public static int recursionSum(int num, int[] ea) {
+		if (num == 0) {
+			return ea[0];
+		}
+		return ea[num] + recursionSum(num - 1, ea);
+	}
 }
