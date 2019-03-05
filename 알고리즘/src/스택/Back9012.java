@@ -1,17 +1,12 @@
-package 백준문제;
+package 스택;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.Stack;
 
-public class Main {
-
+public class Back9012 {
+	
 private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
