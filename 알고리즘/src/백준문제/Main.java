@@ -3,55 +3,80 @@ package 백준문제;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class Main {
 
-private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	
+	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static ArrayList<Integer> list = new ArrayList<>();
+
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		int n = Integer.parseInt(br.readLine());
-		
-		String[] words = new String[n];
-		
-		for (int i = 0; i < n; i++) {
-			words[i] = br.readLine();
+		int num = Integer.parseInt(br.readLine());
+
+		for (int i = 0; i < num; i++) {
+			String input = br.readLine();
+
+			branch(input);
 		}
-		
-		for (int i = 0; i < words.length; i++) {
-			
-			for (int j = 0; j < words.length - i - 1; j++) {
-				
-				if (words[j].length() > words[j+1].length()) {
-					String tmp = words[j];
-					words[j] = words[j + 1];
-					words[j + 1] = tmp;
-				} else if (words[j].length() == words[j+1].length()) {
-					
-					for (int j2 = 0; j2 < words[j].length(); j2++) {
-						
-						if (words[j].charAt(j2) > words[j+1].charAt(j2)) {
-							String tmp = words[j];
-							words[j] = words[j + 1];
-							words[j + 1] = tmp;
-							break;
-						} else if (words[j].charAt(j2) == words[j+1].charAt(j2)) {
-							continue;
-						} else {
-							break;
-				
-						}
-					}
-				}
-			}
+	}
+
+	private static void branch(String input) {
+		String[] arr = input.split(" ");
+
+		switch (arr[0]) {
+		case "pop":
+			pop();
+			break;
+		case "size":
+			size();
+			break;
+		case "empty":
+			empty();
+			break;
+		case "top":
+			top();
+			break;
+		case "push":
+			push(arr[1]);
+			break;
 		}
-		
-		for (int i = 0; i < words.length; i++) {
-			if (i != 0) {
-				if (words[i].equals(words[i-1])) {
-					continue;
-				}
-			}
-			System.out.println(words[i]);
+	}
+
+	private static void push(String string) {
+		int num = Integer.parseInt(string);
+		list.add(num);
+	}
+
+	private static void pop() {
+
+		if (list.size() < 1) {
+			System.out.println("-1");
+			return;
 		}
+
+		System.out.println(list.get(list.size() - 1));
+		list.remove(list.size() - 1);
+	}
+
+	private static void top() {
+
+		if (list.size() < 1) {
+			System.out.println("-1");
+			return;
+		}
+
+		System.out.println(list.get(list.size() - 1));
+	}
+
+	private static void empty() {
+		System.out.println(list.size() == 0 ? "1" : "0");
+	}
+
+	private static void size() {
+		System.out.println(list.size());
 	}
 }
