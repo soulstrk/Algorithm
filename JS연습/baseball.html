@@ -1,0 +1,62 @@
+<html lang="ko">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class="pass"></div>
+    <form action="asd">
+        숫자 입력 : <input type="text">
+        <button type="submit">입력</button>
+    </form>
+</body>
+
+<script>
+    $(function() {
+        var gameStart = makeBaseballFn();
+
+        $("button").click(function(e) {
+            e.preventDefault();
+            
+            gameStart($("[type=text]").val());
+        });
+    })
+
+    var makeBaseballFn = function() {
+        var life = 10;
+        var result = randomNumber();
+        
+        return function(inputNum) {
+            var resultString = resultCheck(inputNum, String(result).split(""), life--);
+
+            $(".pass").text(resultString);
+        }
+    }
+
+    function resultCheck(inputNum, resultArray, life) {
+        var strike = 0;
+        var ball   = 0;
+
+        if (life < 1) {
+            alert("목숨이 소진 되었습니다");
+            alert("답은 " + resultArray + "입니다");
+            return;
+        }
+
+        String(inputNum).split("").forEach(function(val, i) {
+
+            if (resultArray.indexOf(val) > -1) {
+                resultArray[i] === val ? strike++ : ball++;
+            }
+        });
+
+        return strike === 4 ? "정답입니다" : strike + "스트라이크 " + ball + "볼 입니다";
+    }
+
+    function randomNumber() {
+        var random = Math.floor(Math.random() * 9000) + 1000;
+        return random;
+    }
+</script>
+</html>

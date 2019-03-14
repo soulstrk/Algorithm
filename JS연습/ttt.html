@@ -1,0 +1,95 @@
+<html lang="ko">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        td {
+            border : 1px solid black;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <table style="width: 500px; height: 300px;">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+
+<script>
+    var turnFlag = true;
+        gameSet  = false;
+
+    $(function() {
+
+        $("table td").click(function(event) {
+            console.log(event);
+        
+            if (gameSet) { return; }
+
+            var $this = $(this);
+                OorX  = turnFlag ? "O" : "X";
+                tmp   = true;
+
+            if ($this.text().length === 0) {
+                $this.text(OorX);
+            } else if ($this.text() === OorX) {
+                alert("여긴 클릭할 수 없습니다.");
+                return;
+            } else {
+                $this.text(OorX);
+            }
+
+            $this.parent().siblings("tr").each(function() { //첫 번째 경우의 수 확인
+                var trObj = $(this);
+
+                if (trObj.children().eq($this[0].cellIndex).text() !== OorX) {
+                    tmp = false;
+                }
+            });
+
+            if (tmp) { alert(OorX + "님의 승리입니다1."); gameSet = true; return; }
+
+            if ($this.siblings().text() === OorX+OorX) { //두 번째 경우의 수 확인
+                alert(OorX + "님의 승리입니다2.");
+                gameSet = true;
+                return;
+            }
+
+            $this.parents("tbody").children().each(function(index, val) {
+                console.log($(this).children().eq(index).text() === OorX);
+                tmp = $(this).children().eq(index).text() !== OorX ? true : tmp;
+            });
+
+            if (!tmp) { alert(OorX + "님의 승리입니다3."); gameSet = true; return; }
+
+            $this.parents("tbody").children().each(function(index, val) {
+                tmp = $(this).children().eq(2-index).text() !== OorX ? false : tmp;
+            });
+
+            if (tmp) { alert(OorX + "님의 승리입니다4."); gameSet = true; return; }
+
+            turnFlag = !turnFlag;
+            
+        });
+    })
+</script>
+
+</html>
